@@ -2,6 +2,8 @@ absent=0;
 present=1;
 partTime=2;
 
+declare -A perDaySalary;
+
 function calculateWorkingHour() {
 	case $1 in
 		$absent)
@@ -23,8 +25,8 @@ wagePerHour=20;
 totalSalary=0;
 totalWorkingHour=0
 
-day=0;
-while [[ $day -lt 20 && $totalWorkingHour -lt 40 ]]
+day=1;
+while [[ $day -le 20 && $totalWorkingHour -lt 40 ]]
 do
 	wHour=$( calculateWorkingHour $((RANDOM%3)) );
 	totalWorkingHour=$(($totalWorkingHour + $wHour ));
@@ -36,14 +38,14 @@ do
 	fi
 
 	salary=$(( $wagePerHour * $wHour ));
-	perDaySalary[$day]=$salary;
+	perDaySalary['Day'$day]=$salary;
 	totalSalary=$(($totalSalary + $salary));
 	((day++));
 done
 
 echo "Employee as earned $totalSalary$ in a month (Total working hour : $totalWorkingHour)";
 
-for ((cnt=0;cnt<${#perDaySalary[@]};cnt++))
+for dayNum in ${!perDaySalary[@]}
 do
-	echo 'Day '$(($cnt+1)) ' = ' ${perDaySalary[$cnt]};
+	echo "$dayNum = ${perDaySalary[$dayNum]}";
 done

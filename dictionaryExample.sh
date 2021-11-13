@@ -4,6 +4,7 @@ sound[cow]='moo';
 sound[dog]='bark'
 sound[wolf]='howl';
 sound[bird]='tweet';
+sound[lion]='Roar';
 
 echo ${sound[@]};
 echo ${!sound[@]};
